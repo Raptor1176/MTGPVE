@@ -6,11 +6,9 @@
 		<meta name="keywords" content="">
 		<script>
 			tope=1;
-			piso=0;
 			tokenCount=0;
 			mazo= new Array();
 			vault= "";
-			
 			
 			function WalkingDead(){
 				tope=100;
@@ -30,58 +28,57 @@
 				for(i=60; i<100; i++)
 					mazo[i]="Card";
 
-				mazo= shuffle(mazo, 0);
+				mazo= shuffle(mazo);
 				
-				document.getElementById("menu").innerHTML=	'<button type="button" onclick="draw()">To Battlefield</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button type="button" onclick="drop()">To Graveyard</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button type="button" onclick="newToken('+"'ZombieArmy.jpg'"+')">Create Token</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button id="GYB" type="button" onclick="showGY()">Graveyard ON</button><br/><br/>';
+				shiftMenu();
+				document.getElementById("menu").innerHTML+=	'<button type="button" onclick="newToken('+"'ZombieArmy.jpg'"+')">Create Token</button><br/><br/>';
 			}
 			
 			function HailHydra(headStart){
-				tope=60;
-				piso=headStart;
+				tope=60-headStart;
 				vault="img/HailHydra/"
 				
-				for(i=headStart; i<11; i++)
-					mazo[i]="tfth-1";
-				for(i=11; i<15; i++)
-					mazo[i]="tfth-2";
-				for(i=15; i<16; i++)
-					mazo[i]="tfth-3";
-				for(i=16; i<17; i++)
-					mazo[i]="tfth-4";
-				for(i=17; i<18; i++)
-					mazo[i]="tfth-5";
-				for(i=18; i<23; i++)
-					mazo[i]="tfth-6";
-				for(i=23; i<28; i++)
-					mazo[i]="tfth-7";
+				for(i=0; i<6; i++)
+					mazo[i]="tfth-15";
+				for(i=6; i<10; i++)
+					mazo[i]="tfth-14";
+				for(i=10; i<15; i++)
+					mazo[i]="tfth-13";
+				mazo[15]="tfth-12";
+				mazo[16]="tfth-12";
+				for(i=17; i<21; i++)
+					mazo[i]="tfth-11";
+				for(i=21; i<24; i++)
+					mazo[i]="tfth-10";
+				for(i=24; i<28; i++)
+					mazo[i]="tfth-9";
 				for(i=28; i<32; i++)
 					mazo[i]="tfth-8";
-				for(i=32; i<36; i++)
-					mazo[i]="tfth-9";
-				for(i=36; i<39; i++)
-					mazo[i]="tfth-10";
-				for(i=39; i<43; i++)
-					mazo[i]="tfth-11";
-				for(i=43; i<45; i++)
-					mazo[i]="tfth-12";
-				for(i=45; i<50; i++)
-					mazo[i]="tfth-13";
-				for(i=50; i<54; i++)
-					mazo[i]="tfth-14";					
-				for(i=54; i<60; i++)
-					mazo[i]="tfth-15";
+				for(i=32; i<37; i++)
+					mazo[i]="tfth-7";
+				for(i=37; i<42; i++)
+					mazo[i]="tfth-6";
+				mazo[42]="tfth-5";
+				mazo[43]="tfth-4";
+				mazo[44]="tfth-3";
+				for(i=45; i<49; i++)
+					mazo[i]="tfth-2";
+				for(i=49; i<60; i++)
+					mazo[i]="tfth-1";
 
-				mazo= shuffle(mazo, headStart);
-				
-				document.getElementById("menu").innerHTML=	'<button type="button" onclick="draw()">To Battlefield</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button type="button" onclick="drop()">To Graveyard</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button id="GYB" type="button" onclick="showGY()">Graveyard ON</button><br/><br/>';
+				mazo= shuffle(mazo);
 				
 				for( i=0; i<headStart; i++)
 					newToken("tfth-1.jpg");
+				
+				shiftMenu();
+				
+				rules= document.getElementById("rules");
+				rules.innerHTML+="The Hydra's Turn<br/><br/>"
+				rules.innerHTML+="At the start of the Hydra's turn, untap any tapped Heads.<br/><br/>"
+				rules.innerHTML+="Reveal the top card of the Hydra's library. The Hydra casts that card. When the spell resolves, if it's a Head, put it onto the battlefield. If it's a sorcery, follow its instructions and then put it into the Hydra's graveyard.<br/><br/>"
+				rules.innerHTML+="The Hydra deals 1 damage to you for each untapped card named Hydra Head it controls and 2 damage to you for each untapped elite Head it controls."
+				
 			}
 			
 			function cowLvl(){
@@ -109,7 +106,6 @@
 					mazo[i]="tbth-9";
 				for(i=51; i<53; i++)
 					mazo[i]="tbth-10";
-				
 				mazo[53]="tbth-11";
 				mazo[54]="tbth-12";
 				for(i=55; i<57; i++)
@@ -118,11 +114,21 @@
 					mazo[i]="tbth-14";					
 				mazo[59]="tbth-15";
 
-				mazo= shuffle(mazo, 0);
+				mazo= shuffle(mazo);
+				shiftMenu();
 				
-				document.getElementById("menu").innerHTML=	'<button type="button" onclick="draw()">To Battlefield</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button type="button" onclick="drop()">To Graveyard</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button id="GYB" type="button" onclick="showGY()">Graveyard ON</button><br/><br/>';
+				rules= document.getElementById("rules");
+				rules.innerHTML+="Special Rules for Players<br/><br/>"
+				rules.innerHTML+="You take 3 turns at the start of the game, before the Horde first turn.<br/><br/>"
+				rules.innerHTML+="You can attack the Horde with your creatures as though it were a player, even before the horde takes a turn.<br/><br/>"
+				rules.innerHTML+="If the horde would lose life, put that many cards from the top of its library into its graveyard. Hero's rewards from the horde artifacts activate this way too.<br/><br/>"
+				rules.innerHTML+="You can target the horde with spells and abilities as though it were a player, even before the Horde takes a turn."
+				
+				rules.innerHTML+="The Horde's turn<br/><br/>"
+				rules.innerHTML+="At the beginning of the Horde's turn, reveal the top 2 cards of the Horde's library. The horde CAST those cards.<br/><br/>"
+				rules.innerHTML+="You make the choice if the Horde needs to make a decision.<br/><br/>"
+				rules.innerHTML+="Ignore effects that cause the Horde to draw or discard cards, or perform any other impossible actions.<br/><br/>"
+				rules.innerHTML+="If one of the Horde's permanents would move to any other zone other than the library or graveyard, that card is put into the horde graveyard.<br/><br/>"
 			}
 			
 			
@@ -160,28 +166,24 @@
 				for(i=55; i<57; i++)
 					mazo[i]="tdag-15";
 
-
-				mazo= shuffle(mazo, 0);
+				mazo= shuffle(mazo);
 			
-				document.getElementById("boss").innerHTML+=	'<img height="261" width="187" src="img/Xenagos/tdag-1.jpg"></img>';
-				document.getElementById("menu").innerHTML=	'<button type="button" onclick="draw()">To Battlefield</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button type="button" onclick="drop()">To Graveyard</button><br/><br/>';				
-				document.getElementById("menu").innerHTML+=	'<button id="GYB" type="button" onclick="showGY()">Graveyard ON</button><br/><br/>';
+				document.getElementById("boss").innerHTML+=	'<img height="261" width="187" src="img/Xenagos/tdag-1.jpg"></img><br/><br/>';
+				document.getElementById("gyard").style.height="58vh"
+				shiftMenu();
 				
-				for( i=0; i<2; i++)
-					newToken("tdag-2.jpg");
+				newToken("tdag-2.jpg");
+				newToken("tdag-2.jpg");
 			}
 			
-			function shuffle(array, stop) {
+			function shuffle(array) {
 				var currentIndex = array.length, temporaryValue, randomIndex;
 
 				// While there remain elements to shuffle...
-				while (stop !== currentIndex) {
+				while (0 !== currentIndex) {
 
 					// Pick a remaining element...
 					randomIndex = Math.floor(Math.random() * currentIndex);
-					while (randomIndex < stop)
-						randomIndex = Math.floor(Math.random() * currentIndex);
 					currentIndex -= 1;
 
 					// And swap it with the current element.
@@ -192,12 +194,19 @@
 				return array;
 			}
 			
+			function shiftMenu(){
+				menu=document.getElementById("menu");
+				menu.innerHTML=	'<br/><br/><button id="BFB" type="button" onclick="draw()">To Battlefield ('+tope+')</button><br/><br/>';				
+				menu.innerHTML+=	'<button type="button" onclick="drop()">To Graveyard</button><br/><br/>';				
+				menu.innerHTML+=	'<button id="GYB" type="button" onclick="showGY()">Graveyard ON</button><br/><br/>';
+			}
 		
 			function draw(){
 				tope--;
 				card='<div id="card'+tope+'" onclick="toGY('+"'card"+tope+"'"+')"><img height="261" width="187" src="'+vault+mazo[tope]+'.jpg"></img></div>';
 				document.getElementById("bfield").innerHTML= card+document.getElementById("bfield").innerHTML;
-				if (tope==piso)
+				document.getElementById("BFB").innerHTML= "To Battlefield ("+tope+")";
+				if (tope==0)
 					document.getElementById("menu").innerHTML="";
 			}
 			
@@ -211,7 +220,8 @@
 				tope--;
 				card='<div id="card'+tope+'" onclick="toBF('+"'card"+tope+"'"+')"><img height="261" width="187" src="'+vault+mazo[tope]+'.jpg"></img></div>';
 				document.getElementById("gyard").innerHTML= card+document.getElementById("gyard").innerHTML;
-				if (tope==piso)
+				document.getElementById("BFB").innerHTML= "To Battlefield ("+tope+")";
+				if (tope==0)
 					document.getElementById("menu").innerHTML="";
 			}
 			
@@ -248,10 +258,10 @@
 
 	</head>
 
-	<body style="background-color:black; color:darkgray;overflow: hidden;width: 98%;">
-		<div class="row" style="height:99%">
-			<div id="deck" class="col-2">
-				<div id="menu">
+	<body style="background-color:black; color:darkgray;overflow: hidden; height: 100vh">
+		<div class="row">
+			<div class="col-3" style="margin-right: -12px">
+				<div id="menu"><br/><br/>
 					<button type="button" onclick="WalkingDead()" style="visibility:hidden">New Zombie Horde</button><br/><br/>
 					<button type="button" onclick="HailHydra(2)">New Hidra (2 heads)</button><br/><br/>
 					<button type="button" onclick="HailHydra(3)">New Hidra (3 heads)</button><br/><br/>
@@ -259,13 +269,15 @@
 					<button type="button" onclick="cowLvl()">New Cow Level</button><br/><br/>
 					<button type="button" onclick="DefeatGod()">Xenagos</button><br/><br/>
 				</div>
+				<div id="rules" style="overflow: scroll;height: 69vh">
+				</div>
 			</div>
-			<div class="col-8" style="background-color:darkgray; color:black;overflow: scroll;height: 100%">
-				<div id="boss" align="center"></div>
+			<div class="col-7" style="background-color:darkgray; color:black;overflow: scroll;height: 100vh">
 				<div id="bfield" class="row"></div>
 			</div>
-			<div class="col-2"style="overflow: scroll;height: 100%">
-				<div id="gyard" ></div>
+			<div class="col-2" >
+				<div id="boss" style="background-color:purple;"></div>
+				<div id="gyard"style="overflow: scroll;height: 100vh" ></div>
 			</div>
 		</div>
 	</body>
